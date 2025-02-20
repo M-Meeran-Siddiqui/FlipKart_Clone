@@ -1,6 +1,6 @@
 # 🚀 Flipkart-UI-Clone
 
-![Page 1](assets/Project_Preview/Page.png)
+![Page 1](assets/Project_Preview/page.png)
 
 ## 📌 Project Overview
 This project is a **fully responsive and interactive** clone of the **Flipkart website UI**, developed using **HTML, CSS, and JavaScript**. The goal is to replicate the **core design and functionalities** of Flipkart while continuously improving the project with new features.
