@@ -1,0 +1,189 @@
+<!-- Right to Left Slider -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Slider-(Right to Left)</title>
+    <style>
+        .slider {
+            width: 100%;
+            height: 200px;
+            border: 1px solid black;
+            display: flex;
+            overflow: hidden;/* Prevents content from spilling out of the slider */
+
+            /* scroll-snap-type: x mandatory → Enables smooth horizontal snapping */
+            scroll-snap-type: x mandatory;/* Scrolling happens only in X direction and snaps to slides */
+            
+            
+            /* scrollbar-width: none → Hides scrollbar but allows scrolling */
+            scrollbar-width: none;/* Scrollbar is invisible but scrolling still works */
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slider-1 {
+            /* flex: 0 0 100% → Controls the size of slides */
+            flex: 0 0 100%;/* No growing (0), No shrinking (0), Takes full width of slider (100%) */
+
+            /* scroll-snap-align: start → Controls how slides snap */
+            scroll-snap-align: start;/* When scrolling, one full slide moves at a time smoothly */
+        }
+
+        .slider-1 > img {
+            /* width: 100% & height: 100% → Makes the image fit its container */
+            width: 100%;/* Image takes full width of its parent */
+            height: 100%;/* Image takes full height of its parent */
+            object-fit: cover;/* Covers the whole space without empty gaps (may crop extra part) */
+        }
+
+        button{
+             /* height: 20px; */
+             /* width: 10px; */
+             border:1px solid black;
+             background-color: red;
+             color:white;
+             margin:auto;
+             display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <button id="left">left</button>
+    <div class="slider" id="slider">
+        <div class="slider-1"><img src="assests/Images/slider/one.webp" alt="1"></div>
+        <div class="slider-1"><img src="assests/Images/slider/two.webp" alt="2"></div>
+        <div class="slider-1"><img src="assests/Images/slider/three.webp" alt="3"></div>
+        <div class="slider-1"><img src="assests/Images/slider/four.webp" alt="4"></div>
+        <div class="slider-1"><img src="assests/Images/slider/five.webp" alt="5"></div>
+        <div class="slider-1"><img src="assests/Images/slider/six.webp" alt="6"></div>
+        <div class="slider-1"><img src="assests/Images/slider/seven.webp" alt="7"></div>
+        <div class="slider-1"><img src="assests/Images/slider/eight.webp" alt="8"></div>
+        <div class="slider-1"><img src="assests/Images/slider/one.webp" alt="1-clone"></div> <!-- Clone of the first slide -->
+    </div>
+    <button id="right">right</button>
+    <script>
+// Selecting the slider container and all slide elements
+const slider = document.querySelector('.slider');
+const slides = document.querySelectorAll('.slider-1');
+
+// Selecting the left and right buttons
+const leftButton = document.querySelector("#left");
+const rightButton = document.querySelector("#right");
+
+// Initialize current slide index and total slides count
+let currentIndex = 0;
+let totalSlides = slides.length;
+
+// Interval variable for auto-sliding
+let slideInterval;
+
+// Direction: 1 = moves right to left, -1 = moves left to right
+let direction = 1;
+
+/**
+ * Function to move the slide in the current direction
+ */
+function moveSlide() {
+    // Move to the next slide based on the direction
+    currentIndex += direction;
+
+    // Scroll the slider smoothly to the new position
+    slider.scrollTo({
+        left: currentIndex * slider.clientWidth,
+        behavior: 'smooth'
+    });
+
+    // Check if the last slide is reached
+    if (currentIndex === totalSlides - 1) { 
+        setTimeout(() => {
+            // Instantly jump back to the first slide without animation
+            slider.scrollTo({ left: 0, behavior: 'auto' });
+            currentIndex = 0;
+        }, 1000); // Wait 1 second before resetting
+    } 
+    // If the user moves back beyond the first slide
+    else if (currentIndex < 0) { 
+        // Jump to the second-last slide instantly
+        currentIndex = totalSlides - 2; 
+        slider.scrollTo({ left: currentIndex * slider.clientWidth, behavior: 'auto' });
+    }
+}
+
+/**
+ * Function to start auto-sliding the slider
+ */
+function startAutoSlide() {
+    // Clear any existing auto-slide interval to avoid multiple timers
+    clearInterval(slideInterval);
+
+    // Set a new interval to move the slides every 3 seconds
+    slideInterval = setInterval(moveSlide, 3000);
+}
+
+/**
+ * Event listener for Left Button Click
+ * Moves the slide to the left (right to left direction)
+ */
+leftButton.addEventListener("click", () => {
+    direction = 1; // Set direction for right to left movement
+    moveSlide();   // Move one slide immediately
+    startAutoSlide(); // Restart auto-slide in the selected direction
+});
+
+/**
+ * Event listener for Right Button Click
+ * Moves the slide to the right (left to right direction)
+ */
+rightButton.addEventListener("click", () => {
+    direction = -1; // Set direction for left to right movement
+    moveSlide();    // Move one slide immediately
+    startAutoSlide(); // Restart auto-slide in the selected direction
+});
+
+// Start auto-sliding when the page loads
+startAutoSlide();
+
+
+
+
+
+
+
+/*Full Explaination of Slider Working */
+/*
+1️⃣ First, we find and store the slider and buttons in variables.
+slider: The main container holding the images.
+slides: All the images inside the slider.
+leftButton: The "Left" button.
+rightButton: The "Right" button.
+
+2️⃣ We set some starting values.
+currentIndex = 0: This keeps track of which image is currently visible.
+direction = 1: This decides the direction of movement (1 for right to left, -1 for left to right).
+
+3️⃣ We create a function called moveSlide().
+It moves the slider left or right based on direction (as user click the button).
+If we reach the last slide, it quickly jumps back to the first slide (for an infinite effect).
+If we go backward too much, it jumps to the last slide.
+
+4️⃣ We create startAutoSlide().
+This function makes the slider move automatically every 3 seconds.
+
+5️⃣ We listen for button clicks.
+When you click the Left button, the slider starts moving right to left.
+When you click the Right button, the slider starts moving left to right.
+After clicking, the automatic movement follows the selected direction.
+
+6️⃣ When the page loads, auto-sliding starts immediately.
+ */
+   
+   </script>
+</body>
+</html>
+
+

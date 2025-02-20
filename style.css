@@ -13,7 +13,7 @@ body {
 
 /* Header Design */
 header {
-  position: relative;
+  position: fixed;
   z-index: 2;
 }
 nav {
@@ -25,7 +25,7 @@ nav {
   background-color: white;
   position: fixed;
   background-attachment: fixed;
-  box-shadow: 0.5px 0.5px 5px 2px #c7c5c5;
+  box-shadow: 0.5px 0.5px 2.5px 1px #c7c5c5;
 }
 nav > .left-section {
   display: flex;
@@ -67,21 +67,7 @@ nav > .right-section > .login > img[alt="data_Img"] {
   cursor: pointer;
 }
 
-.search-bar > img,
-.search-bar > input {
-  display: none;
-}
-nav > .right-section > .login > :nth-last-child(1) {
-  display: none;
-}
-.seller > img,
-.seller > p {
-  display: none;
-}
-.cart > p {
-  display: none;
-}
-.menu > img {
+.search-bar , nav > .right-section > .login > :nth-last-child(1) , .cart >p , .seller , .menu{
   display: none;
 }
 
@@ -103,9 +89,9 @@ nav > .right-section > .login > :nth-last-child(1) {
   nav > .left-section > :first-child {
     display: none;
   }
-  .search-bar > img,
-  .search-bar > input {
-    display: block;
+
+  .search-bar {
+     display:block;
   }
   .search-bar {
     width: 100%;
@@ -115,7 +101,7 @@ nav > .right-section > .login > :nth-last-child(1) {
     justify-content: space-evenly;
     align-content: center;
     background-color: aliceblue;
-    margin-top: 0.2rem;
+    margin-top: 0.3rem;
     margin-left: 2rem;
   }
   .search-bar > img {
@@ -142,21 +128,22 @@ nav > .right-section > .login > :nth-last-child(1) {
   .cart > p {
     display: block;
   }
+  .seller{
+     display:block;
+  }
   .seller {
     display: flex;
     position: relative;
     bottom: 0.6rem;
     cursor: pointer;
   }
-  .seller > img,
-  .seller > p {
-    display: block;
-  }
   .seller > p {
     padding-left: 0.4rem;
   }
+  .menu{
+     display:block;
+  }
   .menu > img {
-    display: block;
     cursor: pointer;
   }
 }
@@ -239,52 +226,21 @@ nav > .right-section > .login > :nth-last-child(1) {
   margin: 0.5rem 0rem;
   border-radius: 5px;
 }
-
 .section-1b {
   display: none;
 }
-.section-1b > .image-container {
-  display: none;
-}
-.section-1b > .image-container > .inner-image-container {
-  display: none;
-}
-.section-1b > .image-container > .inner-image-container > .images {
-  display: none;
-}
-.section-1b > .image-container > .inner-image-container > .images > img {
-  display: none;
-}
-
-.section-1b > .image-container > .inner-image-container > .bottom-para > p {
-  display: none;
-}
-
 /* For Big-Mobile , Tab ,Laptop ,Desktop */
 @media only screen and (min-width: 345px) {
   .section-1a {
     display: none;
   }
-  .section-1a > .location > p,
-  .section-1a > .location > img {
-    display: none;
-  }
-  .section-1a > .search-bar2 {
-    display: none;
-  }
-  .search-bar2 > img,
-  .search-bar2 > input {
-    display: none;
-  }
-
   .section-1b {
-    margin: auto;
     display: block;
+    margin: auto;
     padding-top: 4rem;
     width: 98.5%;
   }
   .section-1b > .image-container {
-    display: block;
     overflow: scroll;
     box-shadow: 1px 5px 5px #c7c5c5;
     scrollbar-width: none;
@@ -294,21 +250,14 @@ nav > .right-section > .login > :nth-last-child(1) {
     display: none;
   }
   .section-1b > .image-container {
-    margin: auto;
-  }
-  .section-1b > .image-container > .inner-image-container {
-    display: block;
-  }
-  .section-1b > .image-container > .inner-image-container > .images {
-    display: block;
-  }
-  .section-1b > .image-container > .inner-image-container > .images > img {
-    display: block;
+    width: 100%;
+    box-sizing: border-box;
   }
   .section-1b > .image-container > .inner-image-container > .bottom-para > p {
-    display: block;
     transition: color 0.5s ease-in-out 0.5ms;
   }
+  
+
   .section-1b
     > .image-container
     > .inner-image-container
@@ -321,15 +270,26 @@ nav > .right-section > .login > :nth-last-child(1) {
   .section-1b > .image-container {
     display: grid;
     grid-template-columns: repeat(8, auto);
-    grid-column-gap: 2%;
+    gap: 2%;
   }
 
   .inner-image-container > .bottom-para {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
+    text-align: center;
+    margin-top: 0.5rem;
   }
+  .inner-image-container{
+     box-shadow: 0px 0px 3px 1px #ebebeb;
+     padding:  0rem 0.5rem;
+     margin: 1rem 0.5rem;
+     border-radius: 3px;
+  }
+   .inner-image-container .images:hover{
+    transform: scale(1.1);
+    transition: transform 0.5s ease-in-out;
+   }
 }
 
 /* Main-section-2 */
@@ -338,10 +298,12 @@ nav > .right-section > .login > :nth-last-child(1) {
   margin: auto;
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
   top: 5.5rem;
   height: 220px;
   box-shadow: 1px 5px 5px #c7c5c5; /*Here You want to make border-fillers*/
+  flex-direction: column;
 }
 .slider-container {
   width: 98.5%;
@@ -373,13 +335,46 @@ nav > .right-section > .login > :nth-last-child(1) {
   width: 50px;
   top: 3.5rem;
   z-index: 1;
+  border: none;
+  outline: none;
+  background-color: aliceblue;
 }
 
 .left-shift {
   left: 0.55rem;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 .right-shift {
   right: 0.55rem;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+/*Progress-Bar*/
+.progress-bar{
+  display:flex;
+  gap: 30px;
+  padding-top: 0.3rem;
+}
+.bar-1{
+  width: 20px;
+  height: 5px;
+  background-color: aliceblue;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+  transition: width 0.1s ease-in-out;
+}
+.color-filler{
+   width: 0;
+   height: 100%;
+   background-color: #535252;
+   border-radius: 5px;
+   position:absolute;
+   transition: width 2s ease-in-out;
+ }
+.expanded{
+ width: 40px; /*Slightly increased width while filling*/
 }
 
 /* For Tablet , Laptop , Desktop */
@@ -393,10 +388,6 @@ nav > .right-section > .login > :nth-last-child(1) {
 @media only screen and (max-width: 767px) {
   .left-shift,
   .right-shift {
-    display: none;
-  }
-  .left-shift > img,
-  .right-shift > img {
     display: none;
   }
 }
@@ -435,21 +426,33 @@ nav > .right-section > .login > :nth-last-child(1) {
 .card-container-1 {
   position: relative;
   top: 1rem;
-  padding-left: 2rem;
+  padding-left: 1.5rem;
 }
 img[alt="card-Imgs1"] {
   height: 120px;
   width: 100px;
 }
+.card-Img1{
+  box-shadow: 0px 0px 3px 1px #ebebeb;
+  padding:  0.2rem 0.5rem;
+  margin: 0.5rem 0.5rem;
+  border-radius: 3px;
+}
+.card-Img1 img:hover{
+   transform: scale(1.1);
+   transition: transform 0.5s ease-in-out;
+} 
 .card-Img1 > p {
   font-size: 0.7rem;
   text-align: center;
+  cursor: pointer;
 }
 .card-Img1 > strong {
   display: block;
   font-size: 0.8rem;
   text-align: center;
   margin: auto;
+  cursor: pointer;
 }
 aside {
   display: none;
@@ -474,7 +477,7 @@ aside > img {
     width: 72%;
   }
   .card-container-1 {
-    top: 1rem;
+    top: 0.5rem;
   }
   .card-Img1 > img {
     height: 130px;
@@ -513,6 +516,7 @@ aside > img {
   padding-top: 0.3rem;
   color: rgb(64, 62, 62);
 }
+
 .card-Img2 > p {
   font-size: 0.7rem;
   text-align: center;
@@ -523,10 +527,15 @@ aside > img {
   text-align: center;
   margin: auto;
 }
+
+.card-Img2 img:hover{
+  transform: scale(1.1);
+  transition: transform 0.5s ease-in-out; 
+}
 .card-container-2 {
   padding-top: 1rem;
   padding-left: 2rem;
-  padding-right: 0.5rem;
+  padding-right: 1rem;
   padding-bottom: 2rem;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
@@ -541,7 +550,14 @@ aside > img {
 .card-container-2::-webkit-scrollbar {
   display: none;
 }
-
+.card-Img2{
+     box-shadow: 0px 0px 3px 1px #ebebeb;
+     padding:  0.2rem 0.5rem;
+     border-radius: 3px;
+}
+.card-Img2 p , .card-Img2 strong{
+    cursor:pointer;
+}
 @media only screen and (max-width: 345px){
     .section-4{
         top: 7rem;
@@ -568,6 +584,7 @@ aside > img {
   gap: 0.5rem;
   max-width: 1200px; /* Optional: Limit max width */
   box-sizing: border-box;
+  margin: 0.5rem 0.5rem;
 }
 .card-Img3 > img {
   width: 100%; 
@@ -613,6 +630,7 @@ ul > li {
 }
 .head ~ li {
   color: white;
+  cursor: pointer;
 }
 ul > .head,
 .social-links > p {
@@ -621,7 +639,9 @@ ul > .head,
 }
 .social-icon > img {
   padding-right: 0.5rem;
+  cursor: pointer;
 }
+
 .first-column > :nth-last-child(1) {
   padding-top: 1.5rem;
 }
@@ -690,6 +710,7 @@ ul > .head,
      gap: 5px;
      padding: 5px 10px;
      white-space: nowrap;
+     cursor: pointer;
 }
 
 .footer-container-2 img{
@@ -718,20 +739,23 @@ ul > .head,
     border-radius: 10px;
     background-color: #4f4fdc;
     color: white;
-    padding: 1em;
+    padding: 1em 1em;
     display: flex;
+    justify-content: center;
     align-items: center;
     gap: 5px;
     z-index: 1000;
     cursor: pointer;
+    opacity: 0.9;
 }
 
 .fix-Btn img {
     height: auto;
     width: 14.5px;
-    padding: 0em 0.3em;
 }
 
-.fix-Btn span {
-    padding: 0.05em;
+.fix-Btn div {
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }

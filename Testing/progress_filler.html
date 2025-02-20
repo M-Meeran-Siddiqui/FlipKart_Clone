@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Progress-Fillers</title>
+    <style>
+        body{
+             background-color: #dede81;
+        }
+        .progress-bar{
+             display:flex;
+             gap: 20px;
+        }
+        .bar-1{
+             width: 20px;
+             height: 5px;
+             background-color: aliceblue;
+             border-radius: 5px;
+             position: relative;
+             overflow: hidden;
+             transition: width 0.1s ease-in-out;
+        }
+        .color-filler{
+              width: 0;
+              height: 100%;
+              background-color: #535252;
+              border-radius: 5px;
+              position:absolute;
+              transition: width 2s ease-in-out;
+            }
+        .expanded{
+            width: 40px; /*Slightly increased width while filling*/
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="bar-1"><div class="color-filler"></div></div>
+        <div class="bar-1"><div class="color-filler"></div></div>
+        <div class="bar-1"><div class="color-filler"></div></div>
+        <div class="bar-1"><div class="color-filler"></div></div>
+        <div class="bar-1"><div class="color-filler"></div></div>
+        <div class="bar-1"><div class="color-filler"></div></div>
+        <div class="bar-1"><div class="color-filler"></div></div>
+        <div class="bar-1"><div class="color-filler"></div></div>
+    </div>
+
+    <script>
+         let bars = document.querySelectorAll('.bar-1');
+         function animateFillers(index) {
+              if(index >=bars.length){
+                 index = 0;  //Restart after finishing.
+              }
+              //Expand the current bar and fill it
+              let currentBar = bars[index];
+              let currentFiller = currentBar.firstElementChild;
+              currentBar.classList.add("expanded"); //Increase width
+              currentFiller.style.width="100%";
+
+              setTimeout(()=>{
+                   //Move to next bar
+                   let nextIndex = (index + 1) % bars.length;
+                   let nextBar = bars[nextIndex];
+
+                   //Instantly reset the previous bar to avoid visible shrink
+                   currentBar.classList.remove("expanded");
+                   currentFiller.style.transition='none';
+                   currentFiller.style.width = '0';
+
+                   //Restore transition for the next fill
+                    setTimeout(()=>{
+                          currentFiller.style.transition='width 0.5s ease-in-out';
+                          animateFillers(nextIndex);
+                    }, 8); //Small delay to make reset unnoticeable
+              }, 2500);
+         }
+         //Start animation
+           animateFillers(0);
+    </script>
+</body>
+</html>

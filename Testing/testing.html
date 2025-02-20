@@ -1,0 +1,83 @@
+<!-- Right to Left Slider -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Slider-(Right to Left)</title>
+    <style>
+        .slider {
+            width: 100%;
+            height: 200px;
+            border: 1px solid black;
+            display: flex;
+            overflow: hidden;/* Prevents content from spilling out of the slider */
+
+            /* scroll-snap-type: x mandatory → Enables smooth horizontal snapping */
+            scroll-snap-type: x mandatory;/* Scrolling happens only in X direction and snaps to slides */
+            
+            
+            /* scrollbar-width: none → Hides scrollbar but allows scrolling */
+            scrollbar-width: none;/* Scrollbar is invisible but scrolling still works */
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slider-1 {
+            /* flex: 0 0 100% → Controls the size of slides */
+            flex: 0 0 100%;/* No growing (0), No shrinking (0), Takes full width of slider (100%) */
+
+            /* scroll-snap-align: start → Controls how slides snap */
+            scroll-snap-align: start;/* When scrolling, one full slide moves at a time smoothly */
+        }
+
+        .slider-1 > img {
+            /* width: 100% & height: 100% → Makes the image fit its container */
+            width: 100%;/* Image takes full width of its parent */
+            height: 100%;/* Image takes full height of its parent */
+            object-fit: cover;/* Covers the whole space without empty gaps (may crop extra part) */
+        }
+    </style>
+</head>
+<body>
+    <div class="slider" id="slider">
+        <div class="slider-1"><img src="assests/Images/slider/one.webp" alt="1"></div>
+        <div class="slider-1"><img src="assests/Images/slider/two.webp" alt="2"></div>
+        <div class="slider-1"><img src="assests/Images/slider/three.webp" alt="3"></div>
+        <div class="slider-1"><img src="assests/Images/slider/four.webp" alt="4"></div>
+        <div class="slider-1"><img src="assests/Images/slider/five.webp" alt="5"></div>
+        <div class="slider-1"><img src="assests/Images/slider/six.webp" alt="6"></div>
+        <div class="slider-1"><img src="assests/Images/slider/seven.webp" alt="7"></div>
+        <div class="slider-1"><img src="assests/Images/slider/eight.webp" alt="8"></div>
+        <div class="slider-1"><img src="assests/Images/slider/one.webp" alt="1-clone"></div> <!-- Clone of the first slide -->
+    </div>
+    <script>
+        const slider = document.querySelector('.slider');
+        const slides = document.querySelectorAll('.slider-1');
+        let currentIndex = 0;
+        const totalSlides = slides.length;
+
+        function autoSlide() {
+            currentIndex++; //Its tells which slide need to move based on the index like 0->which becomes 1 due to this line its means 1slide ....
+            slider.scrollTo({
+                left: currentIndex * slider.clientWidth, //How much length 1slide move.
+                behavior: 'smooth' //Nature of movement.
+            });
+
+            // Below is for (only to hide the fast movement) to go on (first slide) for repeat the slide movement for infinite slideshow.
+            if (currentIndex === totalSlides - 1) { //if last slide moves.
+                setTimeout(() => { //then this function hide the revisit to the first slide.
+                    slider.scrollTo({
+                        left: 0,
+                        behavior: 'auto' // Instantly jump without smooth effect
+                    });
+                    currentIndex = 0; // Reset index
+                }, 1000); // Wait for smooth scroll to complete.
+            }
+        }
+        setInterval(autoSlide, 3000);
+    </script>
+</body>
+</html>
